@@ -1,30 +1,28 @@
 <?php
-/***************************************************************************
+/**
+ * Author: Jordan Mussi
+ * File: ./inc/plugins/theme_redirect.php
  *
- *	Author:	Jordan Mussi
- *	File:	./inc/plugins/theme_redirect.php
- *  
- *	License:
- *  
- *	This program is free software: you can redistribute it and/or modify
- *	the terms of the GNU General Public License as published by the Free Software 
- *	Foundation, either version 3 of the License, or (at your option) any later 
- *	version.
- *	
- *	This program is distributed in the hope that it will be useful, but WITHOUT ANY 
- *	WARRANTY; without even the implied warranty of MERCHANTABILITY or 
- *	FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License 
- *	for more details.
+ * License:
  *
- *	You should have received a copy of the GNU General Public License
- *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *	
- ***************************************************************************/
+ *  This program is free software: you can redistribute it and/or modify it under
+ *  the terms of the GNU General Public License as published by the Free Software
+ *  Foundation, either version 3 of the License, or (at your option) any later
+ *  version.
+ *
+ *  This program is distributed in the hope that it will be useful, but WITHOUT ANY
+ *  WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ *  FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+ *  for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 /**
  * Default is "theme_redirect.php" because the file is called "theme_redirect.php"
  * Make sure you chnage the value of this when you change the name of the redirect script
  */
- 
 define(REDIRECTOR_LOCATION, "theme_redirect.php");
 
 if(!defined("IN_MYBB"))
@@ -43,15 +41,15 @@ function theme_redirect_info()
 {
 	global $lang;
 	$lang->load("config_theme_redirect");
-	
+
 	return array(
 		"name"			=> $lang->theme_redirect,
 		"description"	=> $lang->theme_redirect_desc,
-		"website"		=> "http://demonate.com/",
+		"website"		=> "https://github.com/JordanMussi/MyBB-Theme-Redirect",
 		"author"		=> "Jordan Mussi",
 		"authorsite"	=> "https://github.com/JordanMussi",
 		"guid"			=> "6b6f3964304dc148ca4f5ae9b2f800c0",
-		"version"		=> "1",
+		"version"		=> "1.1",
 		"compatibility" => "16*"
 	);
 }
@@ -66,7 +64,7 @@ function theme_redirect_is_installed()
 function theme_redirect_install()
 {
 	global $db, $cache;
-	// Make sure everything has been removed 
+	// Make sure everything has been removed
 	theme_redirect_uninstall();
 	// Add new db tables
 	if(!$db->table_exists('theme_redirect'))
@@ -95,15 +93,15 @@ function theme_redirect_install()
 				'name'		=> "Example",
 				'title'		=> "example",
 				'site'		=> 1
-			);		
+			);
 	$db->insert_query('theme_redirect', $example_redirect);
-	
+
 	$example_site = array(
 				'name'		=> "Example",
-				'url'		=> "http://www.mybb.com/index.php?action=mytheme&style={theme}"
-			);		
+				'url'		=> "http://community.mybb.com/index.php?action=mytheme&style={theme}"
+			);
 	$db->insert_query('theme_redirect_sites', $example_site);
-	
+
 	$info = theme_redirect_info();
 	$JM_Plugins = $cache->read('JM_Plugins');
 	$JM_Plugins['theme_redirect'] = array(
